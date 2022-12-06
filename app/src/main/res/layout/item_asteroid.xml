@@ -33,10 +33,10 @@
 
         <ImageView
             android:id="@+id/isPotentially"
-            statusIcon="@{item.isPotentiallyHazardous()}"
+            statusIcon="@{item.isPotentiallyHazardous}"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_status_potentially_hazardous"
+            tools:src="@drawable/ic_status_potentially_hazardous"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/title"
             app:layout_constraintTop_toTopOf="parent"

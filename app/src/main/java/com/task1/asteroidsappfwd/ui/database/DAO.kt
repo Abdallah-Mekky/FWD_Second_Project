@@ -11,28 +11,31 @@ import com.task1.asteroidsappfwd.ui.models.ImageOfDay
 interface DAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(asteroids: Array<Asteroid>)
+     fun insertAll(asteroids: Array<Asteroid>)
 
     @Query("SELECT * FROM ASTEROID ORDER BY closeApproachDate ASC")
-    suspend fun getAllAsteroids(): List<Asteroid>
+     fun getAllAsteroids(): List<Asteroid>
 
 
     @Query("DELETE  FROM Asteroid ")
-    suspend fun deleteAllAsteroids()
+     fun deleteAllAsteroids()
 
     @Query("select * from ImageOfDay")
-    suspend fun getPictureOfDay(): ImageOfDay
+     fun getPictureOfDay(): ImageOfDay
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertPictureOfDay(picture: ImageOfDay)
+     fun insertPictureOfDay(picture: ImageOfDay)
 
     @Query("Delete  from ImageOfDay")
-    suspend fun deleteAllImages()
+     fun deleteAllImages()
 
 
-    @Query("SELECT * FROM ASTEROID WHERE closeApproachDate = :startDate ORDER BY closeApproachDate ASC")
-    suspend fun getAsteroidsByDay(startDate: String): List<Asteroid>
 
-    @Query("SELECT * FROM ASTEROID WHERE closeApproachDate BETWEEN :startDate AND :endDate ORDER BY closeApproachDate ASC")
-    suspend fun getAsteroidsByDate(startDate: String, endDate: String): List<Asteroid>
+    @Query("SELECT * FROM ASTEROID WHERE closeApproachDate == :startDate ORDER By closeApproachDate ASC")
+     fun getAsteroidsByDay(startDate: String): List<Asteroid>
+
+
+
+    @Query("SELECT * FROM ASTEROID obj WHERE closeApproachDate BETWEEN :startDate AND :endDate order by closeApproachDate Asc")
+     fun getAsteroidsByDate(startDate: String, endDate: String): List<Asteroid>
 }

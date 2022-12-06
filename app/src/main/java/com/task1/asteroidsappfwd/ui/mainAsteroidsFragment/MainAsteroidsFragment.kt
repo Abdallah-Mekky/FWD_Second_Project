@@ -83,7 +83,7 @@ class MainAsteroidsFragment : Fragment() {
             }
         }
 
-        return true
+        return super.onOptionsItemSelected(item)
     }
 
     private fun initAsteroidRecyclerView(asteroidsList:List<Asteroid>){

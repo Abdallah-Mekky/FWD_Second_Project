@@ -99,6 +99,7 @@
                         android:layout_height="wrap_content"
                         android:onClick="@{()-> viewModel.isNotClicked()}"
                         android:padding="16dp"
+                        android:contentDescription="@string/help_Button"
                         app:srcCompat="@drawable/ic_help_circle" />
 
                 </LinearLayout>

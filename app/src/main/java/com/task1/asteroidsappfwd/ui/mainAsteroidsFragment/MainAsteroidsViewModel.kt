@@ -18,13 +18,13 @@ import org.json.JSONObject
 class MainAsteroidsViewModel : ViewModel() {
 
     private var currentImageMutableLiveData = MutableLiveData<ImageOfDay>()
-    var currentImage:LiveData<ImageOfDay> = currentImageMutableLiveData
+    var currentImage: LiveData<ImageOfDay> = currentImageMutableLiveData
 
     var asteroidsListMutableLiveData = MutableLiveData<List<Asteroid>>()
-    var asteroidsList:LiveData<List<Asteroid>> = asteroidsListMutableLiveData
+    var asteroidsList: LiveData<List<Asteroid>> = asteroidsListMutableLiveData
 
     var progressAsteroidsMutableLiveData = MutableLiveData<Boolean>()
-    var progressAsteroids:LiveData<Boolean> = progressAsteroidsMutableLiveData
+    var progressAsteroids: LiveData<Boolean> = progressAsteroidsMutableLiveData
 
     init {
 
@@ -47,12 +47,14 @@ class MainAsteroidsViewModel : ViewModel() {
                 MyDataBase.getInstance().asteroidDao().insertPictureOfDay(result)
 
 
-                currentImageMutableLiveData.value = MyDataBase.getInstance().asteroidDao().getPictureOfDay()
+                currentImageMutableLiveData.value =
+                    MyDataBase.getInstance().asteroidDao().getPictureOfDay()
 
 
             } catch (ex: Exception) {
 
-                currentImageMutableLiveData.value = MyDataBase.getInstance().asteroidDao().getPictureOfDay()
+                currentImageMutableLiveData.value =
+                    MyDataBase.getInstance().asteroidDao().getPictureOfDay()
 
             }
 
@@ -84,11 +86,13 @@ class MainAsteroidsViewModel : ViewModel() {
                 MyDataBase.getInstance().asteroidDao().deleteAllAsteroids()
                 MyDataBase.getInstance().asteroidDao().insertAll(finalList)
 
-                asteroidsListMutableLiveData.value = MyDataBase.getInstance().asteroidDao().getAllAsteroids()
+                asteroidsListMutableLiveData.value =
+                    MyDataBase.getInstance().asteroidDao().getAllAsteroids()
 
             } catch (ex: Exception) {
 
-                asteroidsListMutableLiveData.value = MyDataBase.getInstance().asteroidDao().getAllAsteroids()
+                asteroidsListMutableLiveData.value =
+                    MyDataBase.getInstance().asteroidDao().getAllAsteroids()
                 progressAsteroidsMutableLiveData.value = false
             }
         }
@@ -97,33 +101,20 @@ class MainAsteroidsViewModel : ViewModel() {
 
     fun getAsteroidsByDay(currentDay: String) {
 
-        viewModelScope.launch {
 
-            try {
-                asteroidsListMutableLiveData.value = MyDataBase.getInstance().asteroidDao().getAsteroidsByDay(currentDay)
+        asteroidsListMutableLiveData.value =
+            MyDataBase.getInstance().asteroidDao().getAsteroidsByDay(currentDay)
 
-            }catch (ex:Exception){
-
-                throw ex
-            }
-
-
-        }
 
     }
 
     fun getAsteroidByDate(startDate: String, endDate: String) {
 
-        viewModelScope.launch {
 
-            try {
-                asteroidsListMutableLiveData.value =
-                    MyDataBase.getInstance().asteroidDao().getAsteroidsByDate(startDate, endDate)
+        asteroidsListMutableLiveData.value =
+            MyDataBase.getInstance().asteroidDao().getAsteroidsByDate(startDate, endDate)
 
-            }catch (ex:Exception){
-                throw ex
-            }
-        }
+
     }
 
 }
