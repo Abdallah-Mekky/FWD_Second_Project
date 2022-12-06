@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="mainAsteroidsViewModel"
+            type="com.task1.asteroidsappfwd.ui.mainAsteroidsFragment.MainAsteroidsViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/app_background"
+        tools:context=".ui.mainAsteroidsFragment.MainAsteroidsFragment">
+
+
+
+        <FrameLayout
+            android:id="@+id/farmeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ProgressBar
+                android:id="@+id/progressLoading"
+                style="@android:style/Widget.ProgressBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminateTint="@color/colorAccent"
+
+                />
+
+            <ImageView
+                android:id="@+id/imageOfDay"
+                imageUrl="@{mainAsteroidsViewModel.currentImage}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:contentDescription="@{mainAsteroidsViewModel.currentImage.title}"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/placeholder_picture_of_day"
+
+                />
+
+
+            <TextView
+                android:id="@+id/imageOfDayText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="#55010613"
+                android:padding="16dp"
+                android:text="@string/image_of_the_day"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
+        </FrameLayout>
+
+        <ProgressBar
+            android:id="@+id/progressLoadingAsteroids"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:indeterminateTint="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/asteroidRV"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:contentDescription="@string/this_is_nasa_s_picture_of_day_showing_nothing_yet"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farmeLayout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
