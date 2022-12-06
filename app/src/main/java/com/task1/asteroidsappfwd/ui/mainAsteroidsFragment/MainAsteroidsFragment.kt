@@ -55,7 +55,7 @@ class MainAsteroidsFragment : Fragment() {
             initAsteroidRecyclerView(it)
         }
 
-        viewModel.progressImageOfDay.observe(viewLifecycleOwner){
+        viewModel.progressAsteroids.observe(viewLifecycleOwner){
 
                 mainAsteroidsBinding.progressLoadingAsteroids.isVisible = it
 
@@ -86,7 +86,7 @@ class MainAsteroidsFragment : Fragment() {
         return true
     }
 
-    fun initAsteroidRecyclerView(asteroidsList:List<Asteroid>){
+    private fun initAsteroidRecyclerView(asteroidsList:List<Asteroid>){
 
         mainAsteroidsBinding.asteroidRV.adapter = asteroidAdapter
 

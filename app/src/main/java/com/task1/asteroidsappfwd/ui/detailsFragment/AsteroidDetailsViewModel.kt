@@ -1,19 +1,21 @@
 package com.task1.asteroidsappfwd.ui.detailsFragment
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class AsteroidDetailsViewModel : ViewModel() {
 
-    val clicked = MutableLiveData<Boolean>()
+    private val clickedMutableLiveData = MutableLiveData<Boolean>()
+    val clicked:LiveData<Boolean> = clickedMutableLiveData
 
     fun isClicked() {
 
-        clicked.value = false
+        clickedMutableLiveData.value = false
     }
 
     fun isNotClicked() {
 
-        clicked.value = true
+        clickedMutableLiveData.value = true
     }
 }

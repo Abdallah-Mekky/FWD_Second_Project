@@ -2,6 +2,7 @@ package com.task1.asteroidsappfwd.ui.mainAsteroidsFragment
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,11 +17,14 @@ import org.json.JSONObject
 @RequiresApi(Build.VERSION_CODES.N)
 class MainAsteroidsViewModel : ViewModel() {
 
-    var currentImage = MutableLiveData<ImageOfDay>()
+    private var currentImageMutableLiveData = MutableLiveData<ImageOfDay>()
+    var currentImage:LiveData<ImageOfDay> = currentImageMutableLiveData
 
-    var asteroidsList = MutableLiveData<List<Asteroid>>()
+    var asteroidsListMutableLiveData = MutableLiveData<List<Asteroid>>()
+    var asteroidsList:LiveData<List<Asteroid>> = asteroidsListMutableLiveData
 
-    var progressImageOfDay = MutableLiveData<Boolean>()
+    var progressAsteroidsMutableLiveData = MutableLiveData<Boolean>()
+    var progressAsteroids:LiveData<Boolean> = progressAsteroidsMutableLiveData
 
     init {
 
@@ -43,13 +47,13 @@ class MainAsteroidsViewModel : ViewModel() {
                 MyDataBase.getInstance().asteroidDao().insertPictureOfDay(result)
 
 
-                currentImage.value = MyDataBase.getInstance().asteroidDao().getPictureOfDay()
+                currentImageMutableLiveData.value = MyDataBase.getInstance().asteroidDao().getPictureOfDay()
 
 
             } catch (ex: Exception) {
 
-                currentImage.value = MyDataBase.getInstance().asteroidDao().getPictureOfDay()
-                //progressImageOfDay.value = false
+                currentImageMutableLiveData.value = MyDataBase.getInstance().asteroidDao().getPictureOfDay()
+
             }
 
 
@@ -62,7 +66,7 @@ class MainAsteroidsViewModel : ViewModel() {
     fun getAllAsteroids() {
 
         viewModelScope.launch {
-            progressImageOfDay.value = true
+            progressAsteroidsMutableLiveData.value = true
             try {
 
                 val result = ApiManager.getApis().getAsteroidList(
@@ -75,17 +79,17 @@ class MainAsteroidsViewModel : ViewModel() {
                 )
 
                 val finalList = data.asAsteroidEntities()
-                progressImageOfDay.value = false
+                progressAsteroidsMutableLiveData.value = false
 
                 MyDataBase.getInstance().asteroidDao().deleteAllAsteroids()
                 MyDataBase.getInstance().asteroidDao().insertAll(finalList)
 
-                asteroidsList.value = MyDataBase.getInstance().asteroidDao().getAllAsteroids()
+                asteroidsListMutableLiveData.value = MyDataBase.getInstance().asteroidDao().getAllAsteroids()
 
             } catch (ex: Exception) {
 
-                asteroidsList.value = MyDataBase.getInstance().asteroidDao().getAllAsteroids()
-                progressImageOfDay.value = false
+                asteroidsListMutableLiveData.value = MyDataBase.getInstance().asteroidDao().getAllAsteroids()
+                progressAsteroidsMutableLiveData.value = false
             }
         }
     }
@@ -96,7 +100,7 @@ class MainAsteroidsViewModel : ViewModel() {
         viewModelScope.launch {
 
             try {
-                asteroidsList.value = MyDataBase.getInstance().asteroidDao().getAsteroidsByDay(currentDay)
+                asteroidsListMutableLiveData.value = MyDataBase.getInstance().asteroidDao().getAsteroidsByDay(currentDay)
 
             }catch (ex:Exception){
 
@@ -113,15 +117,13 @@ class MainAsteroidsViewModel : ViewModel() {
         viewModelScope.launch {
 
             try {
-                asteroidsList.value =
+                asteroidsListMutableLiveData.value =
                     MyDataBase.getInstance().asteroidDao().getAsteroidsByDate(startDate, endDate)
 
             }catch (ex:Exception){
                 throw ex
             }
         }
-
-
     }
 
 }
